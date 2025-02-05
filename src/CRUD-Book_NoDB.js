@@ -12,6 +12,7 @@ const app = express();
 // parse incoming requests
 app.use(express.json());
 
+
 // sample data
 let books = [
     {
@@ -30,6 +31,7 @@ let books = [
         author: "Author 3",
     },
 ];
+
 
 // route to get all books
 app.get("/", (req, res) => {

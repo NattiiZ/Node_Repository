@@ -16,24 +16,14 @@ const db = new sqlite3.Database('./Database/Book.sqlite');
 // parse incoming requests
 app.use(express.json());
 
-// sample data
-let books = [
-    {
-        id: 1,
-        title: "Harry Potter and the Philosopher's Stone",
-        author: "Author 1",
-    },
-    {
-        id: 2,
-        title: "Harry Potter and the Chamber of Secrets",
-        author: "Author 2",
-    },
-    {
-        id: 3,
-        title: "Harry Potter and the Prisoner of Azkaban",
-        author: "Author 3",
-    },
-];
+
+// Create a table in the database
+db.run(`CREATE TABLE IF NOT EXISTS books (
+    id INTEGER PRIMARY KEY,
+    title TEXT,
+    author TEXT
+)`);
+
 
 // route to get all books
 app.get("/", (req, res) => {
