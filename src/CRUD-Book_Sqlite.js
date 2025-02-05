@@ -26,56 +26,65 @@ db.run(`CREATE TABLE IF NOT EXISTS books (
 
 
 // route to get all books
-app.get("/", (req, res) => {
-    res.json(books);
+app.get("/books", (req, res) => {
+    db.all("SELECT * FROM books", (err, rows) => {
+        if (err)
+            res.status(500).send(err);
+        else
+            res.json(rows);
+    });
 });
 
 // route to get a book by id
 app.get('/books/:id', (req, res) => {
-    const book = books.find((book) => book.id === parseInt(req.params.id));
-    
-    if (!book)
-        res.status(404).send('The book with the given ID was not found');
-
-    res.json(book);
+    db.all("SELECT * FROM books WHERE id = ?", req.params.id, (err, rows) => {
+        if (err)
+            res.status(500).send(err);
+        else
+        {
+            if (!row)
+                res.status(404).send('The book with the given ID was not found');
+            else
+                res.json(row);
+        }
+    });
 });
 
 // route to add a new book
 app.post('/books', (req, res) => {
-    const book = {
-        id: books.length + 1,
-        title: req.body.title,
-        author: req.body.author,
-    };
-
-    books.push(book);
-    res.send(book);
+    const book = req.body;
+    
+    db.run("INSERT INTO books (title, author) VALUES (?, ?)", book.title, book.author, function(err) {
+        if (err)
+            res.status(500).send(err)
+        else
+        {
+            book.id = this.lastID;
+            res.send(book);
+        }
+    });
 });
 
 // route to update a book
 app.put('/books/:id', (req, res) => {
-    const book = books.find((book) => book.id === parseInt(req.params.id));
-    
-    if (!book)
-        res.status(404).send('The book with the given ID was not found');
+    const book = req.body;
 
-    book.title = req.body.title;
-    book.author = req.body.author;
-
-    res.send(book);
+    db.run("UPDATE books SET title = ?, author = ? WHERE id = ?", book.title, book.author, req.params.id, function(err) {
+        if (err)
+            res.status(500).send(err);
+        else
+            res.send(book);
+    });
 });
 
 // route to delete a book
 app.delete('/books/:id', (req, res) => {
-    const book = books.find((book) => book.id === parseInt(req.params.id));
-    
-    if (!book)
-        res.status(404).send('The book with the given ID was not found');
-
-    const index = books.indexOf(book);
-    books.splice(index, 1);
-
-    res.send(book);
+    db.run("DELETE FROM books WHERE id = ?", req.params.id, function(err) {
+        if (err)
+            res.status(500).send(err);
+        else
+            res.send({});
+    });
 });
 
 
