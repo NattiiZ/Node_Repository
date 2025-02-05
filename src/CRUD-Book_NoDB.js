@@ -1,8 +1,3 @@
-// Description: CRUD operations for a book resource without a database.
-// npm install express
-// Run this file with node src/CRUDBookNoDB.js
-// Test with Postman or browser
-
 require('dotenv').config();
 
 const port = process.env.PORT || 3000;
