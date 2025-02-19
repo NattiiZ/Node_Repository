@@ -12,7 +12,7 @@ app.use(express.json());
 const sequelize = new Sequelize('database', 'username', 'password', {
     host: 'localhost',
     dialect: 'sqlite',
-    storage: './Database/Book.sqlite',
+    storage: './Database/SQBook.sqlite',
 });
 
 // define the book model
