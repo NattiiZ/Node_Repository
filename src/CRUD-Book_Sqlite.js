@@ -5,13 +5,11 @@ const express = require("express");
 const app = express();
 const sqlite3 = require('sqlite3');
 
-// open a database connection
-const db = new sqlite3.Database('./Database/Book.sqlite');
-
 // parse incoming requests
 app.use(express.json());
 
-
+// open a database connection
+const db = new sqlite3.Database('./Database/Book.sqlite');
 // Create a table in the database
 db.run(`CREATE TABLE IF NOT EXISTS books (
     id INTEGER PRIMARY KEY,
