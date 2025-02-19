@@ -1,6 +1,6 @@
 require('dotenv').config();
-
 const port = process.env.PORT || 3000;
+
 const express = require("express");
 const app = express();
 const sqlite3 = require('sqlite3');
@@ -8,8 +8,10 @@ const sqlite3 = require('sqlite3');
 // parse incoming requests
 app.use(express.json());
 
+
 // open a database connection
 const db = new sqlite3.Database('./Database/Book.sqlite');
+
 // Create a table in the database
 db.run(`CREATE TABLE IF NOT EXISTS books (
     id INTEGER PRIMARY KEY,
