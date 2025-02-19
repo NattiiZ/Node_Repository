@@ -27,6 +27,7 @@
   "dependencies": {
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
+    "mongoose": "^8.10.1",
     "pg": "^8.13.3",
     "sequelize": "^6.37.5",
     "sqlite3": "^5.1.7"
