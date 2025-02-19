@@ -8,7 +8,7 @@ const app = express();
 app.use(express.json());
 
 // Connect to the MongoDB database
-mongoose.connect('mongodb://admin:NMLits31401@node71645-nodejs-30011.proen.app.ruk-com.cloud:11764', {
+mongoose.connect('mongodb://admin:NMLits31401@node71645-nodejs-30011.proen.app.ruk-com.cloud:27017', {
   useNewUrlParser: true,
   useUnifiedTopology: true
 });
